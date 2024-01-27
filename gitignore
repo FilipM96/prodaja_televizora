@@ -44,6 +44,6 @@ Thumbs.db
 # *.jpg
 # *.jpeg
 # *.png 
-web_servisi/node_modules
+/web_servisi/node_modules
 /node_modules
 *.docx
