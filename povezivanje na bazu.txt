@@ -1,0 +1,32 @@
+<?php
+            $server = "ucka.veleri.hr";
+            $database = "msamsa";
+            $username = "msamsa";
+            $password = "11";
+
+            $conn = mysqli_connect($server, $username, $password, $database);
+
+            // Zadani upit za dohvaćanje svih redaka iz tablice 'tenisice'
+            $query = "SELECT * FROM ";
+
+            // Filtriranje po marki
+            if (isset($_GET['brand']) && !empty($_GET['brand'])) {
+                $brand = mysqli_real_escape_string($conn, $_GET['brand']);
+                $query .= " WHERE marka = '$brand'";
+            }
+
+            // Filtriranje po veličini
+            if (isset($_GET['size']) && !empty($_GET['size'])) {
+                $size = mysqli_real_escape_string($conn, $_GET['size']);
+                $query .= isset($_GET['velicina']) ? " AND velicina = '$size'" : " WHERE velicina = '$size'";
+            }
+
+            // Sortiranje po cijeni
+            if (isset($_GET['sort']) && $_GET['sort'] == 'asc') {
+                $query .= " ORDER BY cijena ASC";
+            } elseif (isset($_GET['sort']) && $_GET['sort'] == 'desc') {
+                $query .= " ORDER BY cijena DESC";
+            }
+
+            $res = mysqli_query($conn, $query);
+        ?>
